@@ -15,6 +15,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +38,7 @@ import com.leon.tecsupstore.util.formatoSoles
 
 @Composable
 fun TarjetaProducto(producto: Producto) {
-    // Estado del menu: por ahora solo se enciende y apaga
+    // Estado del menu desplegable de esta tarjeta
     var expanded by remember { mutableStateOf(false) }
 
     Card(
@@ -85,7 +87,23 @@ fun TarjetaProducto(producto: Producto) {
                         contentDescription = "Opciones del producto"
                     )
                 }
-                // Aqui ira el DropdownMenu (siguiente commit)
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Favoritos") },
+                        onClick = { expanded = false }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Compartir") },
+                        onClick = { expanded = false }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Reportar") },
+                        onClick = { expanded = false }
+                    )
+                }
             }
         }
     }
