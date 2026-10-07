@@ -22,6 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TECSUPSTOREE"
+rootProject.name = "TecsupStore"
 include(":app")
- 

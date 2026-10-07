@@ -10,4 +10,4 @@ data class Usuario(val nombre: String, val correo: String) {
             .uppercase()
 }
 
-val usuarioDemo = Usuario("Maria Rojas", "maria@tecsup.edu.pe")
+val usuarioDemo = Usuario("Daniella Leon", "daniella@tecsup.edu.pe")

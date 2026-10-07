@@ -22,7 +22,7 @@ private val EsquemaClaro = lightColorScheme(
 fun TecsupStoreTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = EsquemaClaro,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }

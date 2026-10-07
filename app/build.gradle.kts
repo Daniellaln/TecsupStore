@@ -5,15 +5,12 @@ plugins {
 
 android {
     namespace = "com.leon.tecsupstore"
-    // Subido a 37: core-ktx 1.19.1 y lifecycle 2.11.0 lo exigen
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.leon.tecsupstore"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
