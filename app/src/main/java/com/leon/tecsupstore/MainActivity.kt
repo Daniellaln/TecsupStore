@@ -5,14 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import com.leon.tecsupstore.ui.components.BarraSuperior
-import com.leon.tecsupstore.ui.screens.PantallaInicio
+import com.leon.tecsupstore.ui.navigation.AppNavegacion
 import com.leon.tecsupstore.ui.theme.TecsupStoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,19 +20,8 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             TecsupStoreTheme {
-                AppTemporal()
+                AppNavegacion()
             }
         }
-    }
-}
-
-@Composable
-private fun AppTemporal() {
-    Scaffold(
-        topBar = { BarraSuperior(titulo = "TECSUP Store", subtitulo = "Mas vendidos") },
-        containerColor = Color.White,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0)
-    ) { innerPadding ->
-        PantallaInicio(modifier = Modifier.padding(innerPadding))
     }
 }
