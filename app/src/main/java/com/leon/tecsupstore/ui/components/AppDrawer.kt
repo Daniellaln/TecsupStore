@@ -15,47 +15,39 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.leon.tecsupstore.ui.navigation.Destino
 
-// Contenido del NavigationDrawer (por ahora los items no navegan)
 @Composable
-fun AppDrawer() {
+fun AppDrawer(
+    onDestinoClick: (Destino) -> Unit,
+    onCerrarSesion: () -> Unit
+) {
     ModalDrawerSheet {
         Spacer(modifier = Modifier.height(32.dp))
-        NavigationDrawerItem(
-            label = { Text("Inicio") },
-            icon = { Icon(Icons.Default.Home, contentDescription = null) },
-            selected = false,
-            onClick = { },
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-        )
-        NavigationDrawerItem(
-            label = { Text("Mis pedidos") },
-            icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = null) },
-            selected = false,
-            onClick = { },
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-        )
-        NavigationDrawerItem(
-            label = { Text("Favoritos") },
-            icon = { Icon(Icons.Default.Favorite, contentDescription = null) },
-            selected = false,
-            onClick = { },
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-        )
-        NavigationDrawerItem(
-            label = { Text("Perfil") },
-            icon = { Icon(Icons.Default.Person, contentDescription = null) },
-            selected = false,
-            onClick = { },
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
-        )
+        Destino.values().forEach { destino ->
+            NavigationDrawerItem(
+                label = { Text(destino.titulo) },
+                icon = { Icon(iconoDe(destino), contentDescription = null) },
+                selected = false,
+                onClick = { onDestinoClick(destino) },
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+            )
+        }
         NavigationDrawerItem(
             label = { Text("Cerrar sesion") },
             icon = { Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null) },
             selected = false,
-            onClick = { },
+            onClick = onCerrarSesion,
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
         )
     }
+}
+
+private fun iconoDe(destino: Destino): ImageVector = when (destino) {
+    Destino.INICIO -> Icons.Default.Home
+    Destino.PEDIDOS -> Icons.AutoMirrored.Filled.List
+    Destino.FAVORITOS -> Icons.Default.Favorite
+    Destino.PERFIL -> Icons.Default.Person
 }
