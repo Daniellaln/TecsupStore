@@ -12,15 +12,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,8 +42,13 @@ import com.leon.tecsupstore.ui.theme.LilaClaro
 import com.leon.tecsupstore.util.formatoSoles
 
 @Composable
-fun TarjetaProducto(producto: Producto) {
-    // Estado del menu desplegable de esta tarjeta
+fun TarjetaProducto(
+    producto: Producto,
+    esFavorito: Boolean,
+    onToggleFavorito: () -> Unit,
+    onCompartir: () -> Unit,
+    onReportar: () -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
 
     Card(
@@ -83,7 +89,14 @@ fun TarjetaProducto(producto: Producto) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            // El Box ancla el menu al icono de 3 puntos
+            if (esFavorito) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Es favorito",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+            // El Box ancla el menu al icono de 3 puntos de ESTA tarjeta
             Box {
                 IconButton(onClick = { expanded = true }) {
                     Icon(
@@ -96,15 +109,19 @@ fun TarjetaProducto(producto: Producto) {
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text("Favoritos") },
+                        text = { Text(if (esFavorito) "Quitar de favoritos" else "Favoritos") },
                         leadingIcon = {
                             Icon(
-                                imageVector = Icons.Default.FavoriteBorder,
+                                imageVector = if (esFavorito) Icons.Default.Favorite
+                                else Icons.Default.FavoriteBorder,
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         },
-                        onClick = { expanded = false }
+                        onClick = {
+                            expanded = false
+                            onToggleFavorito()
+                        }
                     )
                     DropdownMenuItem(
                         text = { Text("Compartir") },
@@ -114,7 +131,10 @@ fun TarjetaProducto(producto: Producto) {
                                 contentDescription = null
                             )
                         },
-                        onClick = { expanded = false }
+                        onClick = {
+                            expanded = false
+                            onCompartir()
+                        }
                     )
                     HorizontalDivider()
                     DropdownMenuItem(
@@ -125,7 +145,10 @@ fun TarjetaProducto(producto: Producto) {
                                 contentDescription = null
                             )
                         },
-                        onClick = { expanded = false }
+                        onClick = {
+                            expanded = false
+                            onReportar()
+                        }
                     )
                 }
             }
